@@ -11,17 +11,19 @@ import java.util.List;
 public class AccountTypeServiceImpl implements  AccountTypeService{
 
     private final AccountTypeMapStruct accountTypeMapStruct;
-
     private final AccountTypeMapper accountTypeMapper;
     @Override
     public List<AccountTypeDto> findAll() {
         List<AccountType> accountTypes=accountTypeMapper.select();
         return accountTypeMapStruct.toDto(accountTypes);
 
-
-    //        List<AccountType> accountTypes=accountTypeMapper.select();
+//        List<AccountType> accountTypes=accountTypeMapper.select();
 //        List<AccountTypeDto> accountTypeDtoList =accountTypes.stream()
 //                .map(accountType -> new AccountTypeDto(accountType.getName())).toList();
 //        return accountTypeDtoList;
     }
+
+
+
+
 }

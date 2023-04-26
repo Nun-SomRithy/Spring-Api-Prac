@@ -9,12 +9,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Mapper
-@Repository
+@Repository //REPO=DAO=MAPPER
 public interface AccountTypeMapper {
 
 
     @SelectProvider(type = AccountTypeProvider.class,method = "buildSelect") //the one who handle
     List<AccountType> select();
 
-
+    AccountType insert();
 }

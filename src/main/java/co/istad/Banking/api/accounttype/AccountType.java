@@ -10,10 +10,6 @@ public class AccountType {
 
 //This is polo class
 private Integer id;
-
 private String name;
-
-
-
 
 }
