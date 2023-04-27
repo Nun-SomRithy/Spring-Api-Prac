@@ -9,6 +9,8 @@ public record CreateUserDto(
                             @NotBlank(message = "gender is Required !") String gender,
                             String oneSignalId,
                             String studentCardId,
-                            @NotNull(message = "You have to confirm are you a student ...") Boolean isStudent
+                            @NotNull(message = "You have to confirm are you a student ...")
+
+                            Boolean isStudent
                              ) {
 }

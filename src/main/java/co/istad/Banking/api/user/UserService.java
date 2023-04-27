@@ -6,5 +6,8 @@ import co.istad.Banking.api.user.web.UserDto;
 public interface UserService {
 
     UserDto createNewUser(CreateUserDto createUserDto);
+    UserDto findUserById(Integer id);
+
+
 
 }

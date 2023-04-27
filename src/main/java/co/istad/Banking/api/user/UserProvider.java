@@ -17,4 +17,15 @@ public class UserProvider {
 
         }}.toString();
     }
+
+
+
+
+    public String buildSelectByIdSql(){
+        return new  SQL(){{
+            SELECT("*");
+            FROM(tableName);
+            WHERE("id=#{id}");
+        }}.toString();
+    }
 }
