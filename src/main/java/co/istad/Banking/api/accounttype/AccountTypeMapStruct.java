@@ -8,9 +8,9 @@ import java.util.List;
 @Mapper(componentModel = "Spring") //org.mapstruct
 public interface AccountTypeMapStruct {
 
-    List<AccountTypeDto> toDto(List<AccountType> model);
+    List<AccountTypeDto> toDto (List<AccountType> model);
 
-      AccountTypeDto toDto(AccountType model);
+    AccountTypeDto toDto(AccountType model);
 
 
 }

@@ -18,7 +18,7 @@ public class AccountTypeRestController {
     private final  AccountTypeService accountTypeService;
     @GetMapping
 //  List<AccountTypeDto> //all work from service
-    public BaseRest<?> fineAll(){
+    public BaseRest<?> findAll(){
         var accountTypeDtoList=accountTypeService.findAll();
         return BaseRest.builder().status(true)
                 .code(HttpStatus.OK.value())

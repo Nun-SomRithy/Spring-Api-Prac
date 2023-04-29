@@ -24,7 +24,6 @@ public class ApiException {
 
         List<Map<String,String>> errors=new ArrayList<>();
 
-
         for (FieldError error : e.getFieldErrors()){
             Map<String,String> errorDetails = new HashMap<>();
             errorDetails.put("name",error.getField());

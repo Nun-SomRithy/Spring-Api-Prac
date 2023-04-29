@@ -1,10 +1,9 @@
 package co.istad.Banking.api.user.web;
 
 
-import co.istad.Banking.api.user.User;
 import co.istad.Banking.api.user.UserService;
-import co.istad.Banking.base.BaseError;
 import co.istad.Banking.base.BaseRest;
+import com.github.pagehelper.PageInfo;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +27,7 @@ public class UserResController {
                 .status(true)
                 .code(HttpStatus.OK.value())
                 .timestamp(LocalDateTime.now())
-                .message("User Has Been Created SuccessFully")
+                .message("User Has Been found SuccessFully")
                 .data(userDto)
                 .build();
     }
@@ -45,5 +44,60 @@ public class UserResController {
                 .build();
     }
 
+
+    @GetMapping
+    public BaseRest<?> findAllUser
+            (
+            @RequestParam(name = "page",required = false,defaultValue = "1") int page ,
+            @RequestParam(name = "limit",required = false,defaultValue = "10") int limit
+            )
+
+    {
+        PageInfo<UserDto> userDtoPageInfo = userService.findAllUsers(page, limit);
+        return BaseRest.builder()
+            .status(true)
+            .code(HttpStatus.OK.value())
+            .timestamp(LocalDateTime.now())
+            .message("User Has Been get SuccessFully")
+            .data(userDtoPageInfo)
+            .build();
+    }
+
+    @DeleteMapping("/{id}")
+    public BaseRest<?> deleteUserById(@PathVariable Integer id){
+        Integer deleteId=userService.deleteUserById(id);
+        return BaseRest.builder()
+                .status(true)
+                .code(HttpStatus.OK.value())
+                .timestamp(LocalDateTime.now())
+                .message("User Has Been Deleted SuccessFully")
+                .data(deleteId)
+                .build();
+    }
+
+
+    @PutMapping("/{id}/is-deleted")
+    public BaseRest<?> updateIsDeletedStatusById(@PathVariable Integer id,@RequestBody isDeletedDto isDeletedDto ){
+        Integer deleteId=userService.updateIsDeletedStatus(id, isDeletedDto.status());
+        return BaseRest.builder()
+                .status(true)
+                .code(HttpStatus.OK.value())
+                .timestamp(LocalDateTime.now())
+                .message("User Has Been Update Status SuccessFully")
+                .data(deleteId)
+                .build();
+    }
+
+    @PutMapping("/{id}")
+    public BaseRest<?> updateUserById(@PathVariable("id") Integer id,@RequestBody UpdateUserDto updateUserDto ){
+        UserDto userDto= userService.updateUserById(id,updateUserDto);
+        return BaseRest.builder()
+                .status(true)
+                .code(HttpStatus.OK.value())
+                .timestamp(LocalDateTime.now())
+                .message("User Has Been Update  SuccessFully")
+                .data(userDto)
+                .build();
+    }
 
 }
