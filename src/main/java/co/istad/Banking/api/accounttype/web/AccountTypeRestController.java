@@ -41,4 +41,20 @@ public class AccountTypeRestController {
                 .data(accountTypeDto)
                 .build();
     }
+
+    @GetMapping("/{id}")
+    public BaseRest<?> findAccountTypeById(@PathVariable Integer id){
+        AccountTypeDto accountTypeDto=accountTypeService.findAccountTypeById(id);return BaseRest.builder()
+                .status(true)
+                .code(HttpStatus.OK.value())
+                .timestamp(LocalDateTime.now())
+                .message("User Has Been found SuccessFully")
+                .data(accountTypeDto)
+                .build();
+
+    }
+
+
+
+
 }

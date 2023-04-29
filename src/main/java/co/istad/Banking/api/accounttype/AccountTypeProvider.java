@@ -24,6 +24,16 @@ public class AccountTypeProvider {
     }
 
 
+    public String buildSelectByIdSql(){
+        return new SQL(){{
+            SELECT("*");
+            FROM(tableName);
+            WHERE("id=#{id}");
+
+        }}.toString();
+    }
+
+
 
 
 

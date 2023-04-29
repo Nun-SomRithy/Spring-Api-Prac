@@ -11,7 +11,14 @@ public interface AccountTypeService {
     List<AccountTypeDto> findAll();
 
 
-    AccountTypeDto createNewAccountType(CreateAccountTypeDto accountTypeDto);
+    AccountTypeDto createNewAccountType(CreateAccountTypeDto createAccountTypeDto);
+
+    AccountTypeDto findAccountTypeById(Integer id);
+
+
+
+
+
 
 
 }

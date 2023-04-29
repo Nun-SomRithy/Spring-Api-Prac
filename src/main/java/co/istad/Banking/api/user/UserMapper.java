@@ -16,7 +16,6 @@ public interface UserMapper {
     void insert(@Param("u") User user);
 
     @SelectProvider(type = UserProvider.class ,method = "buildSelectByIdSql")
-
     @Results(id = "userResultMap",value = {
             @Result(column ="student_card_id",property="studentCardId"),
             @Result(column ="is_student",property="isStudent")

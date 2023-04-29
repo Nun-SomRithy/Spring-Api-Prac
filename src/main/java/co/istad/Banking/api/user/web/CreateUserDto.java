@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.NonNull;
 
+@Builder
 public record CreateUserDto(
                             @NotBlank(message = "Name is Required !")  String name,
                             @NotBlank(message = "gender is Required !") String gender,
