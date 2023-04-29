@@ -1,4 +1,4 @@
-package co.istad.Banking.api.accounttype;
+package co.istad.Banking.api.accounttype.web;
 
 import lombok.*;
 

@@ -1,5 +1,8 @@
 package co.istad.Banking.api.accounttype;
 
+import co.istad.Banking.api.accounttype.web.AccountType;
+import co.istad.Banking.api.accounttype.web.AccountTypeDto;
+import co.istad.Banking.api.accounttype.web.CreateAccountTypeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +26,12 @@ public class AccountTypeServiceImpl implements  AccountTypeService{
 //        return accountTypeDtoList;
     }
 
-
+    @Override
+    public AccountTypeDto createNewAccountType(CreateAccountTypeDto createAccountTypeDto) {
+        AccountType accountType=accountTypeMapStruct.createAccountTypeDtoToAccountType(createAccountTypeDto);
+        accountTypeMapper.insert(accountType);
+        return accountTypeMapStruct.accountTypeToAccountTypeDto(accountType);
+    }
 
 
 }
