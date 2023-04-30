@@ -3,7 +3,6 @@ package co.istad.Banking.api.user;
 import co.istad.Banking.api.user.web.CreateUserDto;
 import co.istad.Banking.api.user.web.UpdateUserDto;
 import co.istad.Banking.api.user.web.UserDto;
-import com.github.pagehelper.ISelect;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+import java.util.logging.Filter;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -89,6 +92,22 @@ public class UserServiceImpl implements UserService {
                 String.format("User with %d is not found",id));
 
 
+    }
+
+    @Override
+    public List<UserDto> findUserByName(String name) {
+        List<User> users = userMapper.selectByName(name);
+        return users.stream().map(userMapStruct::userToUserDto).collect(Collectors.toList());
+
+    }
+
+    @Override
+    public UserDto findUserByStudentCardId(String studentId) {
+        User user = userMapper.selectUserByStudentId(studentId.toUpperCase()).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("User with %s is not found", studentId)));
+        System.out.println(user.getName());
+        return userMapStruct.userToUserDto(user);
     }
 
 
