@@ -25,4 +25,15 @@ public interface AccountTypeMapper {
     @SelectProvider(type = AccountTypeProvider.class,method = "buildSelectByIdSql")
     Optional<AccountType> selectById(@Param("id") Integer id);
 
+
+    @Select("SELECT EXISTS(SELECT * FROM  account_types WHERE id=#{id})")
+    boolean existById(@Param("id") Integer id);
+
+
+    @DeleteProvider(type = AccountTypeProvider.class,method = "buildDeletedByIdSql")
+    void deleteById(@Param("id") Integer id);
+
+
+    @UpdateProvider(type = AccountTypeProvider.class,method = "buildUpdateByIdSql")
+    void updateById(@Param("a") AccountType accountType);
 }

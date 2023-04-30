@@ -25,7 +25,7 @@ public class AccountTypeRestController {
         var accountTypeDtoList=accountTypeService.findAll();
         return BaseRest.builder().status(true)
                 .code(HttpStatus.OK.value())
-                .message("Account type have been found")
+                .message("AccountType have been found")
                 .timestamp(LocalDateTime.now())
                 .data(accountTypeDtoList)
                 .build();
@@ -36,7 +36,7 @@ public class AccountTypeRestController {
         AccountTypeDto accountTypeDto= accountTypeService.createNewAccountType(createAccountTypeDto);
         return BaseRest.builder().status(true)
                 .code(HttpStatus.OK.value())
-                .message("Account type have been Created Successfully")
+                .message("AccountType have been Created Successfully")
                 .timestamp(LocalDateTime.now())
                 .data(accountTypeDto)
                 .build();
@@ -48,11 +48,39 @@ public class AccountTypeRestController {
                 .status(true)
                 .code(HttpStatus.OK.value())
                 .timestamp(LocalDateTime.now())
-                .message("User Has Been found SuccessFully")
+                .message("AccountType Has Been found SuccessFully")
                 .data(accountTypeDto)
                 .build();
 
     }
+
+
+    @DeleteMapping("/{id}")
+    public BaseRest<?> deleteAccountTypeById(@PathVariable Integer id){
+        Integer  deletedId = accountTypeService.deleteById(id);
+        return BaseRest.builder()
+                .status(true)
+                .code(HttpStatus.OK.value())
+                .timestamp(LocalDateTime.now())
+                .message("AccountType Has Been deleted SuccessFully")
+                .data(deletedId)
+                .build();
+    }
+
+
+@PutMapping("/{id}")
+    public BaseRest<?> updateAccountTypeById(@PathVariable Integer id , @RequestBody UpdateAccountTypeDto updateAccountTypeDto){
+        AccountTypeDto accountTypeDto= accountTypeService.updateAccountTypeById(id,updateAccountTypeDto);
+
+        return BaseRest.builder()
+            .status(true)
+            .code(HttpStatus.OK.value())
+            .timestamp(LocalDateTime.now())
+            .message("AccountType Has Been Update SuccessFully")
+            .data(accountTypeDto)
+            .build();
+}
+
 
 
 

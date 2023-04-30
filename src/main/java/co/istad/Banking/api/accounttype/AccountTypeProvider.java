@@ -34,7 +34,21 @@ public class AccountTypeProvider {
     }
 
 
+    public String buildDeletedByIdSql(){
+        return new SQL(){{
+            DELETE_FROM(tableName);
+            WHERE("id=#{id}");
+        }}.toString();
+    }
 
+
+    public String buildUpdateByIdSql(){
+        return new SQL(){{
+            UPDATE(tableName);
+            SET("name=#{a.name}");
+            WHERE("id=#{a.id}");
+        }}.toString();
+    }
 
 
 
