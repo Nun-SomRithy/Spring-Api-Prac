@@ -1,9 +1,7 @@
 package co.istad.Banking.api.user;
 
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
-import java.util.logging.Filter;
 
 public class UserProvider {
 
@@ -57,8 +55,8 @@ public class UserProvider {
         return new SQL(){{
             SELECT("*");
             FROM(tableName);
+            WHERE("name ILIKE '%' || #{name} || '%'");
             WHERE("is_deleted=FALSE");
-
         }}.toString();
     }
 

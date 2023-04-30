@@ -2,12 +2,10 @@ package co.istad.Banking.api.user;
 
 
 import org.apache.ibatis.annotations.*;
-import org.hibernate.validator.internal.util.classhierarchy.Filters;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Filter;
 
 @Repository
 @Mapper
@@ -25,10 +23,10 @@ public interface UserMapper {
     Optional<User> selectById(@Param("id") Integer id);
 
 
-//Page
+    //Page
     @SelectProvider(type = UserProvider.class,method = "buildSelectSql")
     @ResultMap("userResultMap")
-    List<User> select();
+    List<User> select(String name);
 
     @Select("SELECT EXISTS(SELECT * FROM  users WHERE id=#{id})")
     boolean existById(@Param("id") Integer id);
@@ -48,9 +46,6 @@ public interface UserMapper {
     @UpdateProvider(type = UserProvider.class,method = "buildUpdateByIdSql")
     void updateById(@Param("u") User user);
 
-
-    @SelectProvider(type = UserProvider.class, method = "buildSelectByNameSql")
-    List<User> selectByName(@Param("name") String name);
 
 
 }

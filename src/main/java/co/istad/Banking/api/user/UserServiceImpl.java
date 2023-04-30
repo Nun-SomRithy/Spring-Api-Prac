@@ -29,7 +29,6 @@ public class UserServiceImpl implements UserService {
         userMapper.insert(user);
         log.info("User id =" + user.getId());
         System.out.println(user);
-
 //      return userMapStruct.userToUserDto(user);
         return this.findUserById(user.getId());
     }
@@ -39,28 +38,25 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.selectById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
                         String.format("User with %d is not found", id)));
-        System.out.println(user.getName());
         return userMapStruct.userToUserDto(user);
     }
 
 
-//    Pagenation
+    //Page
     @Override
-    public PageInfo<UserDto> findAllUsers(int page, int limit) {
+    public PageInfo<UserDto> findAllUsers(int page, int limit,String name) {
         //Call repo
-       PageInfo<User> userPageInfo = PageHelper.startPage(page,limit)
-                .doSelectPageInfo(userMapper::select);
 
+       PageInfo<User> userPageInfo = PageHelper.startPage(page,limit)
+                .doSelectPageInfo(() -> userMapper.select(name));
         return userMapStruct.userPageInfoToUserDtoPageInfo(userPageInfo);
     }
-
 
     @Override
     public Integer deleteUserById(Integer id) {
         boolean isExisted =userMapper.existById(id);
         if (isExisted){
             //Delete
-
             userMapper.deleteById(id);
             return id;
         }
@@ -94,12 +90,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
-    public List<UserDto> findUserByName(String name) {
-        List<User> users = userMapper.selectByName(name);
-        return users.stream().map(userMapStruct::userToUserDto).collect(Collectors.toList());
-
-    }
 
     @Override
     public UserDto findUserByStudentCardId(String studentId) {

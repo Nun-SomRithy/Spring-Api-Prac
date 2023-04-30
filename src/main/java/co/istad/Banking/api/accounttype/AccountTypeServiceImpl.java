@@ -25,17 +25,12 @@ public class AccountTypeServiceImpl implements  AccountTypeService{
         List<AccountType> accountTypes=accountTypeMapper.select();
         return accountTypeMapStruct.toDto(accountTypes);
 
-//        List<AccountType> accountTypes=accountTypeMapper.select();
-//        List<AccountTypeDto> accountTypeDtoList =accountTypes.stream()
-//                .map(accountType -> new AccountTypeDto(accountType.getName())).toList();
-//        return accountTypeDtoList;
     }
 
     @Override
     public AccountTypeDto createNewAccountType(CreateAccountTypeDto accountTypeDto) {
         AccountType accountType=accountTypeMapStruct.createAccountTypeDtoToAccountType(accountTypeDto);
         accountTypeMapper.insert(accountType);
-//        return accountTypeMapStruct.accountTypeToAccountTypeDto(accountType);
         return this.findAccountTypeById(accountType.getId());
 
     }

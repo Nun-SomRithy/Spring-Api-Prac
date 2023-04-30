@@ -7,13 +7,11 @@ import com.github.pagehelper.PageInfo;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.internal.util.classhierarchy.Filters;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.logging.Filter;
+
 
 @AllArgsConstructor
 @Slf4j
@@ -48,29 +46,16 @@ public class UserResController {
     }
 
 
-
-    @GetMapping("/search-by-name")
-    public BaseRest<?> findUserByName(@RequestParam(name = "name",required = false,defaultValue = "") String name){
-        List<UserDto> userDto=userService.findUserByName(name);
-        return BaseRest.builder()
-                .status(true)
-                .code(HttpStatus.OK.value())
-                .timestamp(LocalDateTime.now())
-                .message("User Has Been found SuccessFully")
-                .data(userDto)
-                .build();
-    }
-
-
     @GetMapping
     public BaseRest<?> findAllUser
             (
                     @RequestParam(name = "page",required = false,defaultValue = "1") int page ,
-                    @RequestParam(name = "limit",required = false,defaultValue = "10") int limit
-            )
+                    @RequestParam(name = "limit",required = false,defaultValue = "10") int limit,
+                    @RequestParam(name = "name",required = false,defaultValue = "") String name
+                    )
 
     {
-        PageInfo<UserDto> userDtoPageInfo = userService.findAllUsers(page,limit);
+        PageInfo<UserDto> userDtoPageInfo = userService.findAllUsers(page,limit,name);
 
         return BaseRest.builder()
                 .status(true)

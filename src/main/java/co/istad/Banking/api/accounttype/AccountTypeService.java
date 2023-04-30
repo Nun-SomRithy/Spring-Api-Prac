@@ -19,7 +19,6 @@ public interface AccountTypeService {
 
     Integer deleteById(Integer id);
 
-
     AccountTypeDto updateAccountTypeById(Integer id, UpdateAccountTypeDto updateAccountTypeDto);
 
 

@@ -13,7 +13,6 @@ import java.util.Optional;
 @Repository //REPO=DAO=MAPPER
 public interface AccountTypeMapper {
 
-
     @SelectProvider(type = AccountTypeProvider.class,method = "buildSelect") //the one who handle
     List<AccountType> select();
 
