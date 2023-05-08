@@ -24,22 +24,28 @@ public class FileUtil {
         @Value("${file.base-url}")
         public String fileBaseUrl;
 
+        @Value("${file.base-download}")
+        public String fileDownload;
+
         public FileDto upload(MultipartFile file){
+
+
                 List<FileDto> uploadedFiles= new ArrayList<>();
                 int lastDotIndex = file.getOriginalFilename().lastIndexOf(".");
                 String extension = file.getOriginalFilename().substring(lastDotIndex + 1);
                 long size = file.getSize();
                 String name = String.format("%s.%s", UUID.randomUUID(), extension);
+                String downloadUrl =fileDownload + name;
                 String url = String.format("%s%s", fileBaseUrl, name);
 
                 Path path = Paths.get(fileServerPath + name);
                 try {
                         Files.copy(file.getInputStream(), path);
-                        FileDto fileDto = new FileDto(name, url, extension, size);
+                        FileDto fileDto = new FileDto(name, url,downloadUrl, extension, size);
                         uploadedFiles.add(fileDto);
                         return fileDto;
                 } catch (IOException e) {
-                        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Upload file failed!,Please Check");
+                        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, " file failed!,Please Check");
                 }
         }
 
