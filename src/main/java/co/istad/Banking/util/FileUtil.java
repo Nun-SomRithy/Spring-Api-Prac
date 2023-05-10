@@ -2,12 +2,15 @@ package co.istad.Banking.util;
 
 import co.istad.Banking.api.file.FileDto;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,7 +32,6 @@ public class FileUtil {
 
         public FileDto upload(MultipartFile file){
 
-
                 List<FileDto> uploadedFiles= new ArrayList<>();
                 int lastDotIndex = file.getOriginalFilename().lastIndexOf(".");
                 String extension = file.getOriginalFilename().substring(lastDotIndex + 1);
@@ -48,6 +50,25 @@ public class FileUtil {
                         throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, " file failed!,Please Check");
                 }
         }
+
+
+//        public Resource findByName(String name){
+//                Path path= Paths.get(fileServerPath + name);
+//                try{
+//                Resource resource=new UrlResource(path.toUri());
+//                        if (resource.exists()){
+//                                return resource;
+//                        }
+//                        throw  new ResponseStatusException(HttpStatus.NOT_FOUND,"File is not Found!");
+//                }
+//                catch (MalformedURLException e){
+//                        throw  new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
+//                }
+//        }
+//
+//        public String getExtension(){
+//
+//        }
 
 
 

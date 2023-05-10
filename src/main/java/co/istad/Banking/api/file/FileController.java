@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -91,9 +92,9 @@ public class FileController {
     @GetMapping("/download/{fileName}")
     public ResponseEntity<?> downloadFile(@PathVariable("fileName") String fileName) {
         Resource resource = fileService.getDownloadFileByName(fileName);
-        System.out.println(fileBaseUrl+"api/v1/files/download/"+fileName);
         return ResponseEntity
                 .ok()
+                . contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() +"\"")
                 .body(resource);
 
@@ -101,13 +102,5 @@ public class FileController {
     }
 
 
-//    @GetMapping("/download/{filename}")
-//    public ResponseEntity<Resource> downloadFileByName(@PathVariable String filename) {
-//        Resource file = fileService.getDownloadFileByName(filename);
-//        return ResponseEntity.ok()
-//                .header(HttpHeaders.CONTENT_DISPOSITION,
-//                        "attachment; " + "filename=\"" + file.getFilename() + "\"")
-//                .body(file);
-//    }
 
 }

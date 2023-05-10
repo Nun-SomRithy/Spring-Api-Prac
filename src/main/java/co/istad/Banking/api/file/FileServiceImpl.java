@@ -4,20 +4,13 @@ package co.istad.Banking.api.file;
 import co.istad.Banking.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.PathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Paths;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +18,7 @@ import java.util.List;
 public class FileServiceImpl implements FileService {
 
     private FileUtil fileUtil;
+
     @Value("${file.server-path}")
     public String fileServerPath;
 
@@ -65,12 +59,20 @@ public class FileServiceImpl implements FileService {
                 String downloadUrl =fileDownload + name;
                 int lastDotIndex = name.lastIndexOf(".");
                 String extension = name.substring(lastDotIndex + 1);
-
                 fileDtoList.add(new FileDto(name, url, downloadUrl, extension, size));
             }
         }
         return fileDtoList;
     }
+
+//    @Override
+//    public FileDto findByName(String name) {
+//        Resource resource= fileUtil.findByName(name);
+//
+//        return FileDto.builder()
+//                .name()
+//                .build();
+//    }
 
 
     @Override
@@ -101,7 +103,6 @@ public class FileServiceImpl implements FileService {
     @Override
     public Resource getDownloadFileByName(String fileName) {
         Resource resource = new PathResource(fileServerPath + fileName);
-
         if (!resource.exists() || !resource.isReadable()) {
             throw new RuntimeException("Error: File not found or cannot be read");
         }

@@ -17,6 +17,7 @@ public interface FileService {
     List<FileDto> uploadMultiple(List<MultipartFile> files);
 
     List<FileDto> getAllFiles();
+//    FileDto findByName(String name);
 
     FileDto removeFileByName(String filename);
     boolean removeAllFile();
