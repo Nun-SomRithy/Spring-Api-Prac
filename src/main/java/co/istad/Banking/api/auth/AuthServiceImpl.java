@@ -4,20 +4,16 @@ package co.istad.Banking.api.auth;
 import co.istad.Banking.api.auth.web.RegisterDto;
 import co.istad.Banking.api.user.User;
 import co.istad.Banking.api.user.UserMapStruct;
-
 import co.istad.Banking.util.MailUtil;
-
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.UUID;
 
 @Slf4j

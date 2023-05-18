@@ -1,7 +1,6 @@
 package co.istad.Banking.api.user;
 
 
-import co.istad.Banking.api.auth.Role;
 import lombok.*;
 
 import java.util.List;

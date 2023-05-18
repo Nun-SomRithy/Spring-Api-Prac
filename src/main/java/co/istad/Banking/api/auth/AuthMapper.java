@@ -1,5 +1,6 @@
 package co.istad.Banking.api.auth;
 
+import co.istad.Banking.api.user.Role;
 import co.istad.Banking.api.user.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;

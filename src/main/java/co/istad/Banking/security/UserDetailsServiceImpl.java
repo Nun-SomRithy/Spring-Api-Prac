@@ -24,7 +24,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         System.out.println(username);
         User user= authMapper.loadUserByUsername(username).orElseThrow(()
                 ->new ResponseStatusException(HttpStatus.NOT_FOUND,"User is in Valid"));
-        System.out.println("ubiwecdbuivwui");
 
         CustomUserDetails customUserDetails=new CustomUserDetails();
         customUserDetails.setUser(user);
