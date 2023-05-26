@@ -18,11 +18,9 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    @GetMapping("/allaccounts")
+    @GetMapping("/accounts")
     public BaseRest<?> findAll(){
-
         var accountDtoList = accountService.findAll();
-
         return BaseRest.builder().status(true)
                 .code(HttpStatus.OK.value())
                 .message("Account have been found")

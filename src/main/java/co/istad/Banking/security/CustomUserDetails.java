@@ -1,11 +1,16 @@
 package co.istad.Banking.security;
 
+import co.istad.Banking.api.user.Role;
 import co.istad.Banking.api.user.User;
+import co.istad.Banking.api.user.web.Authority;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,7 +24,15 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles();
+        List<SimpleGrantedAuthority> simpleGrantedAuthorityList=new ArrayList<>();
+        for(Role role:user.getRoles()){
+            simpleGrantedAuthorityList.add(new SimpleGrantedAuthority(role.getAuthority()));
+            for(Authority authority: role.getAuthorities()){
+                simpleGrantedAuthorityList.add(new SimpleGrantedAuthority(authority.getName()));
+            }
+        }
+
+        return simpleGrantedAuthorityList;
     }
 
     @Override
@@ -51,4 +64,6 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

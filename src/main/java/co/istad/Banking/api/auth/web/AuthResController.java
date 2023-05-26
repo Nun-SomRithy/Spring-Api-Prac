@@ -60,4 +60,17 @@ public class AuthResController {
     }
 
 
+    @PostMapping("/login")
+    public BaseRest<?> login(@Valid @RequestBody LoginDto loginDto){
+    AuthDto authDto=authService.login(loginDto);
+        return BaseRest.builder()
+                .status(true)
+                .code(HttpStatus.OK.value())
+                .message("You have been Login SuccessFully !")
+                .timestamp(LocalDateTime.now())
+                .data(authDto)
+                .build();
+    }
+
+
 }

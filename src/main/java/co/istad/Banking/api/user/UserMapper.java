@@ -18,7 +18,8 @@ public interface UserMapper {
     @SelectProvider(type = UserProvider.class ,method = "buildSelectByIdSql")
     @Results(id = "userResultMap",value = {
             @Result(column ="student_card_id",property="studentCardId"),
-            @Result(column ="is_student",property="isStudent")
+            @Result(column ="is_student",property="isStudent"),
+            @Result(column = "id",property = "roles",many = @Many(select = "selectUserRole"))
     })
     Optional<User> selectById(@Param("id") Integer id);
 
@@ -52,5 +53,13 @@ public interface UserMapper {
 
     @Select("SELECT EXISTS(SELECT * FROM roles WHERE id= #{roleId})")
     boolean checkRoleId(Integer roleId);
+
+
+
+    @SelectProvider(type = UserProvider.class,method = "buildSelectUserRoleId")
+    List<Role> selectUserRole(Integer id);
+
+
+
 
 }

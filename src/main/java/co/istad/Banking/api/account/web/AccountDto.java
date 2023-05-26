@@ -1,6 +1,7 @@
 package co.istad.Banking.api.account.web;
 
 import co.istad.Banking.api.accounttype.web.AccountType;
+import co.istad.Banking.api.accounttype.web.AccountTypeDto;
 import lombok.Builder;
 
 @Builder
@@ -10,7 +11,7 @@ public record AccountDto(
         String profile,
         String phoneNumber,
         Integer transferLimit,
-        AccountType accountType
+        AccountTypeDto accountType
 
 ) {
 

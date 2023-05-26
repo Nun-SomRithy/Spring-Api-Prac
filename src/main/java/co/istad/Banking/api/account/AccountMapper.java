@@ -13,17 +13,31 @@ import java.util.List;
 public interface AccountMapper {
 
 
-    @SelectProvider(type = AccountProvider.class,method = "buildSelectSql")
+    @SelectProvider(type = AccountProvider.class, method = "buildSelectSql")
     @Results(id = "accountResult",value = {
-            @Result(column ="account_type",property="accountType", one =@One(select = "getAccountType"))
+            @Result(column = "account_type",property = "accountType",one = @One(select = "getAccountType"))
     })
     List<Account> select();
 
 
-    @Select("SELECT * FROM  account_types WHERE id = #{account_type}")
+    @Select("SELECT * FROM  account_types WHERE id=#{account_type}")
     AccountType getAccountType(Integer accountType);
 
 
+
+
+
+
+
+
+
+
+//    @Select("SELECT * FROM  account_types WHERE id = #{account_type}")
+//    AccountType getAccountType(Integer accountType);
+
+//    @Results(id = "accountResult",value = {
+//            @Result(column ="account_type",property="accountType", one =@One(select = "getAccountType"))
+//    })
 
 
 }

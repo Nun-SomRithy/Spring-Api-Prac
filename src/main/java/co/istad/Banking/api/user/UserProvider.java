@@ -1,5 +1,6 @@
 package co.istad.Banking.api.user;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
 
@@ -43,6 +44,7 @@ public class UserProvider {
         }}.toString();
     }
 
+
     public String buildUpdateIsDeleteByIdSql(){
         return new SQL(){{
             UPDATE(tableName);
@@ -51,11 +53,14 @@ public class UserProvider {
         }}.toString();
     }
 
-    public String buildSelectSql(){
+    public String buildSelectSql(String name){
         return new SQL(){{
             SELECT("*");
             FROM(tableName);
-            WHERE("name ILIKE '%' || #{name} || '%'");
+//            WHERE("name ILIKE '%' || #{name} || '%'");
+            if (!name.isEmpty()){
+                WHERE("name ILIKE CONCAT('%', #{name}, '%')");
+            }
             WHERE("is_deleted=FALSE");
         }}.toString();
     }
@@ -71,11 +76,21 @@ public class UserProvider {
     }
 
 
+
     public String buildSelectByStudentId(){
         return new SQL(){{
             SELECT("*");
             FROM(tableName);
             WHERE("UPPER(student_card_id) = #{stdId}", "is_deleted = FALSE");
+        }}.toString();
+    }
+
+    public  String buildSelectUserRoleId(){
+        return new SQL(){{
+            SELECT("*");
+            FROM("roles as r");
+            JOIN("users_roles as ur ON r.id=ur.role_id");
+            WHERE("ur.user_id =  #{id}");
         }}.toString();
     }
 

@@ -33,6 +33,7 @@ public class UserResController {
                 .build();
     }
 
+
     @GetMapping("/{studentId}/student-card-id")
     public BaseRest<?> findUserByStudentId(@PathVariable String studentId){
         UserDto userDto = userService.findUserByStudentCardId(studentId);

@@ -1,7 +1,9 @@
 package co.istad.Banking.security;
 
 import co.istad.Banking.api.auth.AuthMapper;
+import co.istad.Banking.api.user.Role;
 import co.istad.Banking.api.user.User;
+import co.istad.Banking.api.user.web.Authority;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,12 +23,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println(username);
-        User user= authMapper.loadUserByUsername(username).orElseThrow(()
-                ->new ResponseStatusException(HttpStatus.NOT_FOUND,"User is in Valid"));
+        User user = authMapper.loadUserByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User is not valid."));
+        log.info("User:{}",user.getRoles());
+        for(Role role:user.getRoles()){
+            for(Authority authority:role.getAuthorities()){
+                System.out.println(authority.getName());
+            }
+        }
 
-        CustomUserDetails customUserDetails=new CustomUserDetails();
-        customUserDetails.setUser(user);
-        return customUserDetails;
+        CustomUserDetails customUserDetail = new CustomUserDetails();
+        customUserDetail.setUser(user);
+        log.info("Custom User Details:{}",customUserDetail.getAuthorities());
+
+        return customUserDetail;
     }
 }
